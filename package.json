@@ -1,13 +1,19 @@
 {
   "name": "inet_xtoy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "inet_ntop() and inet_pton() bindings for Node.js",
   "main": "index.js",
   "scripts": {
     "install": "node-gyp rebuild",
     "test": "mocha tests"
   },
-  "keywords": [],
+  "keywords": [
+    "ip",
+    "inet_ntop",
+    "inet_pton",
+    "ipv4",
+    "ipv6"
+  ],
   "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name>",
   "license": "MIT",
   "repository": {
@@ -24,6 +30,8 @@
     "should": "^13.2.3"
   },
   "semistandard": {
-    "env": [ "mocha" ]
+    "env": [
+      "mocha"
+    ]
   }
 }
