@@ -23,7 +23,7 @@ console.log(inet_ntop(inet_pton('::1')));
 
 # API
 
-*inet_ntop(buf)* converts an IPv4 or IPv6 address `buf` from binary to text form.
+**inet_ntop(buf)** converts an IPv4 or IPv6 address `buf` from binary to text form.
 
 `buf` is expected to be a 4 (IPv4) or 16 (IPv6) bytes long String or Buffer.
 
@@ -31,7 +31,7 @@ Returns the IP address as a string or throws an Error in case the call to [`inet
 
 Throws `TypeError` when the number of arguments is not 1, or when `buf` is neither String nor Buffer, or when the length of `buf` si neither 4 nor 16.
 
-*inet_pton(ip)* converts an IPv4 or IPv6 address `buf` from text to binary form.
+**inet_pton(ip)** converts an IPv4 or IPv6 address `buf` from text to binary form.
 
 `ip` is expected to be a string. If `ip` is not a valid IP address, the function returns `null`.
 
