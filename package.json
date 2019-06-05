@@ -1,0 +1,25 @@
+{
+  "name": "inet_xtoy",
+  "version": "1.0.0",
+  "description": "inet_ntop() and inet_pton() bindings for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "test": "mocha tests"
+  },
+  "keywords": [],
+  "author": "Volodymyr Kolesnykov <volodymyr@wildwolf.name>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sjinks/node-inet-xtoy"
+  },
+  "dependencies": {
+    "nan": "*"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "node-gyp": "^4.0.0",
+    "should": "^13.2.3"
+  }
+}
