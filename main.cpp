@@ -71,7 +71,7 @@ static NAN_METHOD(inet_ntop)
 	if (!inet_ntop(family, buffer, str, INET6_ADDRSTRLEN)) {
 		return Nan::ThrowError(node::ErrnoException(v8::Isolate::GetCurrent(), errno, std::strerror(errno)));
 	}
-	
+
 	info.GetReturnValue().Set(Nan::New(str).ToLocalChecked());
 }
 

@@ -20,6 +20,10 @@
   "devDependencies": {
     "mocha": "^6.1.4",
     "node-gyp": "^4.0.0",
+    "semistandard": "*",
     "should": "^13.2.3"
+  },
+  "semistandard": {
+    "env": [ "mocha" ]
   }
 }
