@@ -1,6 +1,6 @@
 {
   "name": "inet_xtoy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "inet_ntop() and inet_pton() bindings for Node.js",
   "main": "index.js",
   "scripts": {
