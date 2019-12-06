@@ -1,8 +1,9 @@
 {
   "name": "inet_xtoy",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "inet_ntop() and inet_pton() bindings for Node.js",
   "main": "index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "install": "node-gyp rebuild",
     "test": "mocha tests"
