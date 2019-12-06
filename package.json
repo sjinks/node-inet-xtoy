@@ -24,8 +24,8 @@
     "nan": "*"
   },
   "devDependencies": {
-    "mocha": "^6.2.1",
-    "node-gyp": "^5.0.5",
+    "mocha": "^6.2.2",
+    "node-gyp": "^6.0.1",
     "semistandard": "^14.2.0",
     "should": "^13.2.3"
   },
