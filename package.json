@@ -1,6 +1,6 @@
 {
   "name": "inet_xtoy",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "inet_ntop() and inet_pton() bindings for Node.js",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "mocha": "^6.2.2",
-    "node-gyp": "^6.0.1",
+    "node-gyp": "^6.1.0",
     "semistandard": "^14.2.0",
     "should": "^13.2.3"
   },
