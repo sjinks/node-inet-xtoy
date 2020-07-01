@@ -1,8 +1,8 @@
 # node-inet-xtoy
 
-[![Build Status](https://travis-ci.com/sjinks/node-inet-xtoy.svg?branch=master)](https://travis-ci.com/sjinks/node-inet-xtoy)
+![Build and Test CI](https://github.com/sjinks/node-inet-xtoy/workflows/Build%20and%20Test%20CI/badge.svg)
 
-inet_ntop() and inet_pton() bindings for Node.js
+`inet_ntop()` and `inet_pton()` bindings for Node.js
 
 # Installation
 
