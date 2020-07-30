@@ -34,7 +34,7 @@
     "eslint-config-standard": "^13.0.1",
     "mocha": "^8.0.1",
     "node-gyp": "^7.0.0",
-    "semistandard": "^14.2.2",
+    "semistandard": "^14.2.3",
     "should": "^13.2.3"
   },
   "semistandard": {
