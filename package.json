@@ -31,10 +31,8 @@
     "nan": "^2.14.2"
   },
   "devDependencies": {
-    "eslint-config-standard": "^13.0.1",
     "mocha": "^8.2.0",
     "node-gyp": "^7.1.2",
-    "semistandard": "^14.2.3",
     "should": "^13.2.3"
   },
   "semistandard": {
