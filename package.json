@@ -5,7 +5,9 @@
   "main": "index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "install": "node-gyp rebuild",
+    "install": "prebuild-install --runtime napi --tag-prefix '' || node-gyp rebuild",
+    "build": "node-gyp rebuild",
+    "build:dev": "node-gyp rebuild --debug",
     "test": "mocha tests"
   },
   "keywords": [
@@ -28,21 +30,26 @@
     "binding.gyp"
   ],
   "dependencies": {
-    "nan": "^2.14.2"
+    "bindings": "^1.5.0",
+    "node-addon-api": "^3.1.0",
+    "prebuild-install": "^6.0.0"
   },
   "devDependencies": {
     "mocha": "^8.2.1",
     "node-gyp": "^7.1.2",
     "should": "^13.2.3"
   },
-  "semistandard": {
-    "env": [
-      "mocha"
-    ]
-  },
   "gypfile": true,
   "bugs": {
     "url": "https://github.com/sjinks/node-inet-xtoy/issues"
   },
-  "homepage": "https://github.com/sjinks/node-inet-xtoy#readme"
+  "homepage": "https://github.com/sjinks/node-inet-xtoy#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "binary": {
+    "napi_versions": [
+      1
+    ]
+  }
 }

@@ -1,58 +1,70 @@
-#include <nan.h>
+#include <napi.h>
+#include <uv.h>
 #include <arpa/inet.h>
 #include <string>
 #include <cerrno>
 
-static NAN_METHOD(inet_pton)
+[[noreturn]] static void throwErrnoError(Napi::Env env, int code)
 {
-	if (info.Length() != 1) {
-		return Nan::ThrowTypeError("Wrong number of arguments");
-	}
+	napi_value error;
+	napi_create_error(env, Napi::Value::From(env, uv_err_name(-code)), Napi::Value::From(env, uv_strerror(-code)), &error);
 
-	if (!info[0]->IsString()) {
-		return Nan::ThrowTypeError("Wrong argument");
-	}
-
-	char buf[sizeof(struct in6_addr)];
-	std::string s_ip = std::string(*Nan::Utf8String(info[0].As<v8::String>()));
-	bool is_v6 = s_ip.find(':') != std::string::npos;
-
-	int res = inet_pton(is_v6 ? AF_INET6 : AF_INET, s_ip.c_str(), buf);
-	if (-1 == res) {
-		return Nan::ThrowError(node::ErrnoException(v8::Isolate::GetCurrent(), errno, std::strerror(errno)));
-	}
-
-	if (0 == res) {
-		info.GetReturnValue().Set(Nan::Null());
-		return;
-	}
-
-	Nan::MaybeLocal<v8::Object> result = Nan::CopyBuffer(buf, is_v6 ? sizeof(struct in6_addr) : sizeof(struct in_addr));
-	info.GetReturnValue().Set(result.ToLocalChecked());
+	Napi::Error err(env, error);
+	err.Set("errno", Napi::Value::From(env, code));
+	throw err;
 }
 
-static NAN_METHOD(inet_ntop)
+static Napi::Value InetPtoN(const Napi::CallbackInfo& info)
 {
+	const Napi::Env& env = info.Env();
+	unsigned char buf[sizeof(struct in6_addr)];
 	if (info.Length() != 1) {
-		return Nan::ThrowTypeError("Wrong number of arguments");
+		throw Napi::TypeError::New(env, "Wrong number of arguments");
 	}
 
+	if (!info[0].IsString()) {
+		throw Napi::TypeError::New(env, "The argument is expected to be a string");
+	}
+
+	const Napi::String arg = info[0].As<Napi::String>();
+	const std::string ip = arg;
+	bool is_v6 = ip.find(':') != std::string::npos;
+
+	int res = inet_pton(is_v6 ? AF_INET6 : AF_INET, ip.c_str(), buf);
+	switch (res) {
+		case -1:
+			throwErrnoError(env, errno);
+
+		case 0:
+			return env.Null();
+
+		default:
+			return Napi::Buffer<unsigned char>::Copy(env, buf, is_v6 ? sizeof(struct in6_addr) : sizeof(struct in_addr));
+	}
+}
+
+static Napi::Value InetNtoP(const Napi::CallbackInfo& info)
+{
+	const Napi::Env& env = info.Env();
+	if (info.Length() != 1) {
+		throw Napi::TypeError::New(env, "Wrong number of arguments");
+	}
+
+	std::string binary;
 	const char* buffer = nullptr;
 	size_t size = 0;
-	std::string s;
-
-	if (info[0]->IsArrayBufferView()) {
-		buffer = node::Buffer::Data(info[0]);
-		size   = node::Buffer::Length(info[0]);
+	if (info[0].IsBuffer()) {
+		Napi::Buffer<char> buf = info[0].As<Napi::Buffer<char> >();
+		buffer = buf.Data();
+		size = buf.ByteLength();
 	}
-	else if (info[0]->IsString()) {
-		Nan::Utf8String v(info[0]);
-		s = *v;
-		buffer = s.c_str();
-		size   = s.size();
+	else if (info[0].IsString()) {
+		binary = info[0].As<Napi::String>();
+		buffer = binary.c_str();
+		size = binary.size();
 	}
 	else {
-		return Nan::ThrowTypeError("Wrong argument");
+		throw Napi::TypeError::New(env, "The argument is expected to be a string or a Buffer");
 	}
 
 	char str[INET6_ADDRSTRLEN];
@@ -64,21 +76,21 @@ static NAN_METHOD(inet_ntop)
 		family = AF_INET6;
 	}
 	else {
-		Nan::ThrowTypeError("Wrong argument");
-		return;
+		throw Napi::TypeError::New(env, "The argument is of the wrong size");
 	}
 
 	if (!inet_ntop(family, buffer, str, INET6_ADDRSTRLEN)) {
-		return Nan::ThrowError(node::ErrnoException(v8::Isolate::GetCurrent(), errno, std::strerror(errno)));
+		throwErrnoError(env, errno);
 	}
 
-	info.GetReturnValue().Set(Nan::New(str).ToLocalChecked());
+	return Napi::Value::From(env, str);
 }
 
-static NAN_MODULE_INIT(InitAll)
+static Napi::Object Init(Napi::Env env, Napi::Object exports)
 {
-	Nan::Set(target, Nan::New("inet_pton").ToLocalChecked(), Nan::GetFunction(Nan::New<v8::FunctionTemplate>(inet_pton)).ToLocalChecked());
-	Nan::Set(target, Nan::New("inet_ntop").ToLocalChecked(), Nan::GetFunction(Nan::New<v8::FunctionTemplate>(inet_ntop)).ToLocalChecked());
+    exports.Set("inet_ntop", Napi::Function::New(env, InetNtoP));
+    exports.Set("inet_pton", Napi::Function::New(env, InetPtoN));
+    return exports;
 }
 
-NODE_MODULE(inet_xtoy, InitAll)
+NODE_API_MODULE(inet_xtoy, Init)
