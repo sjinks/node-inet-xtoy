@@ -50,5 +50,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: |
-          docker run --rm -v $(pwd):/usr/src/app wildwildangel/docker-prebuild-alpine npx prebuild -r napi -u ${{ secrets.GITHUB_TOKEN }}
-          docker run --rm -v $(pwd):/usr/src/app wildwildangel/docker-prebuild-devtoolset-7-toolchain-centos7 npx prebuild -r napi -u ${{ secrets.GITHUB_TOKEN }}
+          docker run --rm -v $(pwd):/usr/src/app wildwildangel/docker-prebuild-alpine npx prebuild -r napi -u ${{ secrets.GITHUB_TOKEN }} --tag-prefix ''
+          docker run --rm -v $(pwd):/usr/src/app wildwildangel/docker-prebuild-devtoolset-7-toolchain-centos7 npx prebuild -r napi -u ${{ secrets.GITHUB_TOKEN }} --tag-prefix ''
