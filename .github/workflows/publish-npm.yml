@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         env:
           cache-name: cache-node-modules
         with:
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: 14
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         env:
           cache-name: cache-node-modules
         with:
