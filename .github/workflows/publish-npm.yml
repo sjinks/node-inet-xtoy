@@ -12,18 +12,9 @@ jobs:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v2.4.1
         with:
-          node-version: 14
+          node-version: lts/*
           registry-url: https://registry.npmjs.org/
-      - uses: actions/cache@v2.1.7
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          cache: npm
       - run: npm ci
       - run: npm run build
       - run: npm publish
@@ -36,17 +27,8 @@ jobs:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v2.4.1
         with:
-          node-version: 14
-      - uses: actions/cache@v2.1.7
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          node-version: lts/*
+          cache: npm
       - run: npm ci
       - run: npm run build
       - run: |

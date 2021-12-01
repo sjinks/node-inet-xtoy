@@ -14,24 +14,14 @@ jobs:
         node_version: ['12', '14', '16']
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - name: Check out source
+        uses: actions/checkout@v2.4.0
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ matrix.node_version }}
-
-      - name: Cache node modules
-        uses: actions/cache@v2.1.7
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
