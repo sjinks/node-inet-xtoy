@@ -16,6 +16,7 @@ jobs:
           - '12'
           - '14'
           - '16'
+          - '18'
     name: Build and Test (Node ${{ matrix.node }})
     steps:
       - name: Check out the code
