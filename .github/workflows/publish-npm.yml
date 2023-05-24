@@ -5,6 +5,9 @@ on:
     tags:
       - '*'
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -23,6 +26,8 @@ jobs:
 
   prebuild:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
@@ -33,4 +38,5 @@ jobs:
       - run: npm run build
       - run: |
           docker run --rm -v $(pwd):/usr/src/app wildwildangel/docker-prebuild-alpine npx prebuild -r napi -u ${{ secrets.GITHUB_TOKEN }} --tag-prefix ''
+          sudo rm -rf build
           docker run --rm -v $(pwd):/usr/src/app wildwildangel/docker-prebuild-devtoolset-7-toolchain-centos7 npx prebuild -r napi -u ${{ secrets.GITHUB_TOKEN }} --tag-prefix ''
