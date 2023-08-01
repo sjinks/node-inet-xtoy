@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "bindings": "^1.5.0",
-    "node-addon-api": "^7.0.0",
+    "node-addon-api": "*",
     "prebuild-install": "^7.0.0"
   },
   "devDependencies": {
@@ -43,6 +43,9 @@
   "overrides": {
     "prebuild": {
       "node-gyp": "$node-gyp"
+    },
+    "node-gyp": {
+      "semver": "^7.5.2"
     }
   },
   "gypfile": true,
