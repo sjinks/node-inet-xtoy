@@ -29,14 +29,14 @@ console.log(inet_ntop(inet_pton('::1')));
 
 Returns the IP address as a string or throws an Error in case the call to [`inet_ntop(3)`](http://man7.org/linux/man-pages/man3/inet_ntop.3.html) fails.
 
-Throws `TypeError` when the number of arguments is not 1, or when `buf` is neither String nor Buffer, or when the length of `buf` si neither 4 nor 16.
+Throws `TypeError` when the number of arguments is not 1, when `buf` is neither String nor Buffer or when the length of `buf` is neither 4 nor 16.
 
 **inet_pton(ip)** converts an IPv4 or IPv6 address `buf` from text to binary form.
 
-`ip` is expected to be a string. If `ip` is not a valid IP address, the function returns `null`.
+`ip` is expected to be a string. The function returns `null` if `ip` is not a valid IP address.
 
-Returns `Buffer` with binary form of the given `ip`, the length of the buffer is either 4 or 16 bytes.
+Returns `Buffer` with the binary form of the given `ip`; the length of the buffer is either 4 or 16 bytes.
 
-Throws `TypeError` when the number of arguments is not 1, or when `ip` is not a string.
+Throws `TypeError` when the number of arguments is not 1 or when `ip` is not a string.
 
 Throws `Error` when a call to [`inet_pton(3)`](http://man7.org/linux/man-pages/man3/inet_pton.3.html) fails.
