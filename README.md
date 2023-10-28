@@ -1,6 +1,7 @@
 # node-inet-xtoy
 
-![Build and Test CI](https://github.com/sjinks/node-inet-xtoy/workflows/Build%20and%20Test%20CI/badge.svg)
+[![Build and Test](https://github.com/sjinks/node-inet-xtoy/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/sjinks/node-inet-xtoy/actions/workflows/build-and-test.yml)
+[![CodeQL](https://github.com/sjinks/node-inet-xtoy/actions/workflows/codeql.yml/badge.svg)](https://github.com/sjinks/node-inet-xtoy/actions/workflows/codeql.yml)
 
 `inet_ntop()` and `inet_pton()` bindings for Node.js
 
