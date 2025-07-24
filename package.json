@@ -8,7 +8,7 @@
     "install": "prebuild-install --runtime napi --tag-prefix '' || node-gyp rebuild",
     "build": "node-gyp rebuild",
     "build:dev": "node-gyp rebuild --debug",
-    "test": "mocha tests"
+    "test": "node --test"
   },
   "keywords": [
     "ip",
@@ -35,10 +35,8 @@
     "prebuild-install": "^7.0.0"
   },
   "devDependencies": {
-    "mocha": "^11.0.0",
     "node-gyp": "^11.0.0",
-    "prebuild": "^13.0.0",
-    "should": "^13.2.3"
+    "prebuild": "^13.0.0"
   },
   "overrides": {
     "prebuild": {
